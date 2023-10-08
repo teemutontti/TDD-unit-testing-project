@@ -1,5 +1,21 @@
 package main.java;
 
-class Category {
+import java.util.ArrayList;
 
+public class Category {
+    private String name;
+    private boolean isNeed;
+    private ArrayList<String> transactions;
+
+    private int nameLengthLimit = 20;
+
+    public Category(String name, boolean isNeed) {
+        if (name.length() < nameLengthLimit && name.length() > 0) {
+            this.name = name;
+            this.isNeed = isNeed;
+            this.transactions = new ArrayList<String>();
+        } else {
+            throw new IllegalArgumentException("Category name exceeds it's limitations");
+        }
+    }
 }
