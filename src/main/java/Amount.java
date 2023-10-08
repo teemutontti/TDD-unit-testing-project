@@ -3,13 +3,13 @@ package main.java;
 public class Amount {
     private int euros;
     private int cents;
-    private String wholeAmount;
+    private String amount;
 
     public Amount(int euros, int cents) throws IllegalArgumentException {
         if (cents < 100 && cents >= 0 && euros < 10000 && euros >= 0) {
             this.euros = euros;
             this.cents = cents;
-            this.wholeAmount = formWholeAmount(euros, cents);
+            this.amount = formWholeAmount(euros, cents);
         } else {
             throw new IllegalArgumentException("Amount exceeds it's limitations");
         }
