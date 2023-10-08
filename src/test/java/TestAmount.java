@@ -46,4 +46,11 @@ public class TestAmount {
         Amount amount = new Amount(2, 30);
         Assert.assertEquals(2, amount.getEuros());
     }
+
+    // getCents() tests
+    @Test
+    public void testGetCents() {
+        Amount amount = new Amount(2, 30);
+        Assert.assertEquals(30, amount.getCents());
+    }
 }
