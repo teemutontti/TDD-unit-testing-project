@@ -30,4 +30,8 @@ public class Amount {
     public int getCents() {
         return this.cents;
     }
+
+    public String getAmount() {
+        return amount;
+    }
 }
