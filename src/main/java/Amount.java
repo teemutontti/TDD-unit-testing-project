@@ -26,4 +26,8 @@ public class Amount {
     public int getEuros() {
         return this.euros;
     }
+
+    public int getCents() {
+        return this.cents;
+    }
 }
