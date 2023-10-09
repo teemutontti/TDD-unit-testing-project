@@ -13,4 +13,11 @@ public class TestTransaction {
         Transaction transaction = new Transaction(1, 5, false);
         Assert.assertNotNull(transaction);
     }
+
+    // formDate tests
+    @Test
+    public void testFormDate() {
+        Transaction transaction = new Transaction(1, 5, false);
+        Assert.assertEquals("2023/10/09", transaction.formDate());
+    }
 }
