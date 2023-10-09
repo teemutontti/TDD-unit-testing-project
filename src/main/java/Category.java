@@ -11,7 +11,7 @@ public class Category {
 
     public Category(String name, boolean isNeed) {
         if (name.length() < nameLengthLimit && name.length() > 0) {
-            this.name = name;
+            this.name = format(name);
             this.isNeed = isNeed;
             this.transactions = new ArrayList<String>();
         } else {
@@ -33,5 +33,10 @@ public class Category {
     }
     public void setIsNeed(boolean isNeed) {
         this.isNeed = isNeed;
+    }
+
+    // Format string, first letter to uppercase
+    public String format(String str) {
+        return str.substring(0, 1).toUpperCase() + str.substring(1);
     }
 }
