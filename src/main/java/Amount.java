@@ -9,13 +9,13 @@ public class Amount {
         if (cents < 100 && cents >= 0 && euros < 10000 && euros >= 0) {
             this.euros = euros;
             this.cents = cents;
-            this.amount = formWholeAmount(euros, cents);
+            this.amount = formAmount(euros, cents);
         } else {
             throw new IllegalArgumentException("Amount exceeds it's limitations");
         }
     }
 
-    public String formWholeAmount(int euros, int cents) {
+    public String formAmount(int euros, int cents) {
         if (cents < 10) {
             return Integer.toString(euros) + ".0" + Integer.toString(cents) + " €";
         } else {
@@ -31,7 +31,8 @@ public class Amount {
         return this.cents;
     }
 
-    public String getAmount() {
-        return amount;
+    @Override
+    public String toString() {
+        return this.amount;
     }
 }
