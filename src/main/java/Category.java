@@ -18,4 +18,13 @@ public class Category {
             throw new IllegalArgumentException("Category name exceeds it's limitations");
         }
     }
+
+    // Name GETTER
+    public String getName() {
+        return this.name;
+    }
+    // IsNeed GETTER
+    public boolean getIsNeed() {
+        return this.isNeed;
+    }
 }
