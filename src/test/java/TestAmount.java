@@ -32,12 +32,12 @@ public class TestAmount {
     @Test
     public void testGetWholeAmountCentsOverNine() {
         Amount amount = new Amount(1, 10);
-        Assert.assertEquals("1.10 €", amount.formWholeAmount(1,10));
+        Assert.assertEquals("1.10 €", amount.formAmount(1,10));
     }
     @Test
     public void testGetWholeAmountCentsUnderTen() {
         Amount amount = new Amount(1, 9);
-        Assert.assertEquals("1.09 €", amount.formWholeAmount(1,9));
+        Assert.assertEquals("1.09 €", amount.formAmount(1,9));
     }
 
     // getEuros() tests
@@ -52,12 +52,5 @@ public class TestAmount {
     public void testGetCents() {
         Amount amount = new Amount(2, 30);
         Assert.assertEquals(30, amount.getCents());
-    }
-
-    // getAmount() tests
-    @Test
-    public void testGetAmount() {
-        Amount amount = new Amount(2, 30);
-        Assert.assertEquals("2.30 €", amount.getAmount());
     }
 }
