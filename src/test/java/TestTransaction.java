@@ -25,6 +25,6 @@ public class TestTransaction {
     @Test
     public void testGetAmount() {
         Transaction transaction = new Transaction(100, 0, false);
-        Assert.assertEquals("100.0 €", transaction.getAmount());
+        Assert.assertEquals("100.00 €", transaction.getAmount());
     }
 }
