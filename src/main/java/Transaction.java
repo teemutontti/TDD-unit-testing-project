@@ -30,4 +30,9 @@ public class Transaction {
         LocalDateTime now = LocalDateTime.now();
         return formatter.format(now);
     }
+
+    // Getters
+    public Amount getAmount() {
+        return this.amount;
+    }
 }
