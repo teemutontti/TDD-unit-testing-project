@@ -13,10 +13,14 @@ public class Transaction {
     // Constructor
     public Transaction(int euros, int cents, boolean isIncome) {
         this.amount = new Amount(euros, cents);
+        this.isIncome = isIncome;
+        this.date = formDate();
         this.category = null;
     }
     public Transaction(int euros, int cents, boolean isIncome, String category) {
         this.amount = new Amount(euros, cents);
+        this.isIncome = isIncome;
+        this.date = formDate();
         this.category = null; // TODO: Check if category is created
     }
 
