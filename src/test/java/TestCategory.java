@@ -47,4 +47,11 @@ public class TestCategory {
         category.setIsNeed(false);
         Assert.assertEquals(false, category.getIsNeed());
     }
+
+    // Format tests
+    @Test
+    public void testFormat() {
+        Category category = new Category("test", false);
+        Assert.assertEquals("Test", category.format("test"));
+    }
 }
