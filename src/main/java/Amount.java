@@ -31,8 +31,7 @@ public class Amount {
         return this.cents;
     }
 
-    @Override
-    public String toString() {
+    public String getAmount() {
         return this.amount;
     }
 }
