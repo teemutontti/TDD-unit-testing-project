@@ -19,12 +19,19 @@ public class Category {
         }
     }
 
-    // Name GETTER
+    // Getters
     public String getName() {
         return this.name;
     }
-    // IsNeed GETTER
     public boolean getIsNeed() {
         return this.isNeed;
+    }
+
+    // Setters
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setIsNeed(boolean isNeed) {
+        this.isNeed = isNeed;
     }
 }
