@@ -35,4 +35,11 @@ public class Transaction {
     public String getAmount() {
         return this.amount.getAmount();
     }
+    public String getDate() {
+        return this.date;
+    }
+    public boolean getIsIncome() {
+        return this.isIncome;
+    }
+    // TODO: Add getter for category
 }
