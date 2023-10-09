@@ -20,4 +20,11 @@ public class TestTransaction {
         Transaction transaction = new Transaction(1, 5, false);
         Assert.assertEquals("2023/10/09", transaction.formDate());
     }
+
+    // Getter tests
+    @Test
+    public void testGetAmount() {
+        Transaction transaction = new Transaction(100, 0, false);
+        Assert.assertEquals("100.0 €", transaction.getAmount());
+    }
 }
