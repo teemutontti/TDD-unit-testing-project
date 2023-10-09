@@ -5,23 +5,21 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 
 public class Transaction {
+    private String name;
+    private String notes;
     private Amount amount;
     private Category category;
     private boolean isIncome;
     private String date;
 
     // Constructor
-    public Transaction(int euros, int cents, boolean isIncome) {
+    public Transaction(String name, String notes, int euros, int cents, String category, boolean isIncome) {
+        this.name = name;
+        this.notes = notes;
         this.amount = new Amount(euros, cents);
+        this.category = null;  // TODO: Check if category is created
         this.isIncome = isIncome;
         this.date = formDate();
-        this.category = null;
-    }
-    public Transaction(int euros, int cents, boolean isIncome, String category) {
-        this.amount = new Amount(euros, cents);
-        this.isIncome = isIncome;
-        this.date = formDate();
-        this.category = null; // TODO: Check if category is created
     }
 
     // Form current date
