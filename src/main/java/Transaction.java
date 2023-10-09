@@ -32,7 +32,7 @@ public class Transaction {
     }
 
     // Getters
-    public Amount getAmount() {
-        return this.amount;
+    public String getAmount() {
+        return this.amount.getAmount();
     }
 }
