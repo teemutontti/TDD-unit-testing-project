@@ -5,14 +5,14 @@ import main.java.Amount;
 import main.java.Transaction;
 
 public class Budget {
-    String name;
-    String month;
-    Amount goalAmount;
+    private String name;
+    private String month;
+    private Amount goalAmount;
 
-    Amount incomeAmount = new Amount(0, 0);
-    Amount expenseAmount = new Amount(0, 0);
-    Amount balanceAmount = new Amount(0, 0);
-    ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+    private Amount incomeAmount = new Amount(0, 0);
+    private Amount expenseAmount = new Amount(0, 0);
+    private Amount balanceAmount = new Amount(0, 0);
+    private ArrayList<Transaction> transactions = new ArrayList<Transaction>();
 
     // Constructor
     public Budget(String name, String month, Amount goal) {
