@@ -27,6 +27,11 @@ public class TestAmount {
         Amount amount = new Amount(1,99);
         Assert.assertNotNull(amount);
     }
+    @Test
+    public void testBypass() {
+        Amount amount = new Amount(-50,0, true);
+        Assert.assertEquals("-50.00 €", amount.getAmount());
+    }
 
     // formWholeAmount() tests
     @Test
