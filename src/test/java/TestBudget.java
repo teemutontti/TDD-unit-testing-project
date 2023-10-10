@@ -9,7 +9,7 @@ import main.java.Amount;
 
 public class TestBudget {
 
-    // Constructor tests
+    /* --- Constructor tests --- */
     @Test
     public void testConstructorNotNull() {
         String budgetName = "My First Budget";
@@ -20,7 +20,8 @@ public class TestBudget {
         Assert.assertNotNull(budget);
     }
 
-    // Function tests
+    /* --- Function tests --- */
+    // addIncome() tests
     @Test
     public void testAddSingleTransaction() {
         Budget budget = new Budget("My Budget", "Lokakuu", new Amount(10000, false));
@@ -37,8 +38,26 @@ public class TestBudget {
         }
         Assert.assertEquals(10, budget.getTransactions().size());
     }
+    // addExpense() tests
+    @Test
+    public void testAddExpensePositive() {
+        Budget budget = new Budget("My Budget", "Lokakuu", new Amount(100,0));
+        budget.addExpense(100,50);
+        Assert.assertEquals("100.50 €", budget.getExpense());
+    }
+    @Test
+    public void testAddExpenseNegative() {
+        Budget budget = new Budget("My Budget", "Lokakuu", new Amount(100,0));
+        budget.addExpense(-100,-50);
+        Assert.assertEquals("100.50 €", budget.getExpense());
+    }
+    @Test(expected = IllegalArgumentException.class)
+    public void testAddExpenseCentsOverHundred() {
+        Budget budget = new Budget("My Budget", "Lokakuu", new Amount(100,0));
+        budget.addExpense(-100,500);
+    }
 
-    // Getter tests
+    /* --- Getter tests --- */
     @Test
     public void testGetBalance() {
         Budget budget = new Budget("My Budget", "Lokakuu", new Amount(10000,false));
@@ -70,7 +89,7 @@ public class TestBudget {
         Assert.assertEquals("100.00 €", budget.getGoal());
     }
 
-    // Setter tests
+    /* --- Setter tests --- */
     @Test
     public void testSetName() {
         Budget budget = new Budget("My Budget", "Lokakuu", new Amount(10000,false));
