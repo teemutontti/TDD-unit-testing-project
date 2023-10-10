@@ -15,6 +15,16 @@ public class Amount {
         }
     }
 
+    public void add(int euros, int cents) {
+        if (cents < 100) {
+            this.euros += Math.abs(euros);
+            this.cents += Math.abs(cents);
+            this.amount = formAmount(this.euros, this.cents);
+        } else {
+            throw new IllegalArgumentException("Cents has to be under 100!");
+        }
+    }
+
     public String formAmount(int euros, int cents) {
         if (cents < 10) {
             return Integer.toString(euros) + ".0" + Integer.toString(cents) + " €";
