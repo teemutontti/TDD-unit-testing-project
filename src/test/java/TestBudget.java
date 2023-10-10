@@ -56,6 +56,23 @@ public class TestBudget {
         Budget budget = new Budget("My Budget", "Lokakuu", new Amount(100,0));
         budget.addExpense(-100,500);
     }
+    // updateBalance tests
+    @Test
+    public void testUpdateBalanceOnlyIncome() {
+        Budget budget = new Budget("My Budget", "Lokakuu", new Amount(100,0));
+        budget.addIncome(50, 20);
+        budget.updateBalance();
+        Assert.assertEquals("50.20 €", budget.getBalance());
+    }
+    /*
+    @Test
+    public void testUpdateBalanceOnlyExpense() {
+        Budget budget = new Budget("My Budget", "Lokakuu", new Amount(100,0));
+        budget.addExpense(35, 10);
+        budget.updateBalance();
+        Assert.assertEquals("-35.10 €", budget.getBalance());
+    }
+    */
 
     /* --- Getter tests --- */
     @Test
