@@ -23,6 +23,11 @@ public class Budget {
     public void addTransaction(Transaction transaction) {
         transactions.add(transaction);
     }
+    public void updateBalance() {
+        int balanceUpdatedEuros = this.incomeAmount.getEuros() - this.expenseAmount.getEuros();
+        int balanceUpdatedCents = this.incomeAmount.getCents() - this.expenseAmount.getCents();
+        this.balanceAmount = new Amount(balanceUpdatedEuros, balanceUpdatedCents);
+    }
 
     // Getters
     public String getBalance() {
