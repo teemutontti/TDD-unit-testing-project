@@ -51,4 +51,12 @@ public class Budget {
             return "No transactions found!";
         }
     }
+
+    // Setters
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setMonth(String month) {
+        this.month = month;
+    }
 }
