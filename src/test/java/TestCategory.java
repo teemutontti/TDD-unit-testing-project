@@ -24,7 +24,7 @@ public class TestCategory {
     @Test
     public void testGetName() {
         Category category = new Category("test", false);
-        Assert.assertEquals("test", category.getName());
+        Assert.assertEquals("Test", category.getName());
     }
     @Test
     public void testGetIsNeed() {
@@ -36,9 +36,9 @@ public class TestCategory {
     @Test
     public void testSetName() {
         Category category = new Category("test1", false);
-        Assert.assertEquals("test1", category.getName());
+        Assert.assertEquals("Test1", category.getName());
         category.setName("test2");
-        Assert.assertEquals("test2", category.getName());
+        Assert.assertEquals("Test2", category.getName());
     }
     @Test
     public void testSetIsNeed() {
