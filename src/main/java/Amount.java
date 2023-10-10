@@ -14,6 +14,15 @@ public class Amount {
             throw new IllegalArgumentException("Amount exceeds it's limitations");
         }
     }
+    public Amount(int euros, int cents, boolean bypassLimitations) throws IllegalArgumentException {
+        if (bypassLimitations) {
+            this.euros = euros;
+            this.cents = cents;
+            this.amount = formAmount(euros, cents);
+        } else {
+            throw new IllegalArgumentException("Amount exceeds it's limitations");
+        }
+    }
 
     public void add(int euros, int cents) {
         if (cents < 100) {
