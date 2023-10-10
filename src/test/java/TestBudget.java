@@ -19,7 +19,7 @@ public class TestBudget {
         Assert.assertNotNull(budget);
     }
 
-    // getBalance() tests
+    // Getter tests
     @Test
     public void testGetBalance() {
         Budget budget = new Budget("My Budget", "Lokakuu", new Amount(100,0));
@@ -54,5 +54,19 @@ public class TestBudget {
     public void testGetTransactions() {
         Budget budget = new Budget("My Budget", "Lokakuu", new Amount(100, 0));
         Assert.assertEquals("No transactions found!", budget.getTransactions());
+    }
+
+    // Setter tests
+    @Test
+    public void testSetName() {
+        Budget budget = new Budget("My Budget", "Lokakuu", new Amount(100,0));
+        budget.setName("Teemu's Budget");
+        Assert.assertEquals("Teemu's Budget", budget.getName());
+    }
+    @Test
+    public void testSetMonth() {
+        Budget budget = new Budget("My Budget", "Lokakuu", new Amount(100,0));
+        budget.setMonth("Marraskuu");
+        Assert.assertEquals("Marraskuu", budget.getMonth());
     }
 }
