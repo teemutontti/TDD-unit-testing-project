@@ -5,24 +5,19 @@ import main.java.Amount;
 import main.java.Transaction;
 
 public class Budget {
-
-    // Variables
     String name;
     String month;
-    Amount incomeAmount;
-    Amount expenseAmount;
-    Amount balanceAmount;
     Amount goalAmount;
-    ArrayList<Transaction> transactions;
+
+    Amount incomeAmount = new Amount(0, 0);
+    Amount expenseAmount = new Amount(0, 0);
+    Amount balanceAmount = new Amount(0, 0);
+    ArrayList<Transaction> transactions = new ArrayList<Transaction>();
 
     // Constructor
-    public Budget(String name, String month, Amount income, Amount expense, Amount balance, Amount goal, ArrayList<Transaction> transactions) {
+    public Budget(String name, String month, Amount goal) {
         this.name = name;
         this.month = month;
-        this.incomeAmount = income;
-        this.expenseAmount = expense;
-        this.balanceAmount = balance;
         this.goalAmount = goal;
-        this.transactions = transactions;
     }
 }
