@@ -29,7 +29,7 @@ public class Category {
 
     // Setters
     public void setName(String name) {
-        this.name = name;
+        this.name = format(name);
     }
     public void setIsNeed(boolean isNeed) {
         this.isNeed = isNeed;
