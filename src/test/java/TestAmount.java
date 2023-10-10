@@ -40,21 +40,36 @@ public class TestAmount {
         Assert.assertEquals("1.09 €", amount.formAmount(1,9));
     }
 
-    // getEuros() tests
+    // add() tests
+    @Test
+    public void testAddPositive() {
+        Amount amount = new Amount(0, 0);
+        amount.add(1,0);
+        Assert.assertEquals("1.00 €", amount.getAmount());
+    }
+    @Test
+    public void testAddNegative() {
+        Amount amount = new Amount(0, 0);
+        amount.add(-1,-1);
+        Assert.assertEquals("1.01 €", amount.getAmount());
+    }
+    @Test(expected = IllegalArgumentException.class)
+    public void testAddCentsOverHundred() {
+        Amount amount = new Amount(0, 0);
+        amount.add(-1,100);
+    }
+
+    // Getter tests
     @Test
     public void testGetEuros() {
         Amount amount = new Amount(2, 30);
         Assert.assertEquals(2, amount.getEuros());
     }
-
-    // getCents() tests
     @Test
     public void testGetCents() {
         Amount amount = new Amount(2, 30);
         Assert.assertEquals(30, amount.getCents());
     }
-
-    // getAmount() tests
     @Test
     public void testGetAmount() {
         Amount amount = new Amount(2, 30);
