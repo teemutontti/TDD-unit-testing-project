@@ -1,5 +1,7 @@
 package test.java;
 
+import java.util.ArrayList;
+
 import org.junit.*;
 import main.java.Budget;
 import main.java.Transaction;
@@ -20,12 +22,20 @@ public class TestBudget {
 
     // Function tests
     @Test
-    public void testAddTransaction() {
+    public void testAddSingleTransaction() {
         Budget budget = new Budget("My Budget", "Lokakuu", new Amount(10000, false));
-        Transaction transaction = new Transaction("My Budget", "", 10000, false, null, true);
+        Transaction transaction = new Transaction("1st transaction", "", 10000, false, null, true);
         budget.addTransaction(transaction);
-        budget.addTransaction(transaction);
-        Assert.assertEquals("2023/10/14", budget.getTransactions());
+        Assert.assertEquals(1, budget.getTransactions().size());
+    }
+    @Test
+    public void testAddMultipleTransactions() {
+        Budget budget = new Budget("My Budget", "Lokakuu", new Amount(10000, false));
+        Transaction transaction = new Transaction("1st transaction", "", 10000, false, null, true);
+        for (int i=0; i<10; i++) {
+            budget.addTransaction(transaction);
+        }
+        Assert.assertEquals(10, budget.getTransactions().size());
     }
 
     // Getter tests
