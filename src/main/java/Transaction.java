@@ -1,6 +1,4 @@
 package main.java;
-import main.java.Amount;
-import main.java.Category;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 
@@ -13,10 +11,10 @@ public class Transaction {
     private String date;
 
     // Constructor
-    public Transaction(String name, String notes, int euros, int cents, String category, boolean isIncome) {
+    public Transaction(String name, String notes, int cents, boolean isNegative, String category, boolean isIncome) {
         this.name = name;
         this.notes = notes;
-        this.amount = new Amount(euros, cents);
+        this.amount = new Amount(cents, isNegative);
         this.category = null;  // TODO: Check if category is created
         this.isIncome = isIncome;
         this.date = formDate();
