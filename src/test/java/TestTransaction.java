@@ -18,6 +18,13 @@ public class TestTransaction {
         Assert.assertNotNull(transaction);
     }
 
+    //toString tests
+    @Test
+    public void testToString() {
+        Transaction transaction = new Transaction("Tikkari", "", 105, false, "", false);
+        Assert.assertEquals("Tikkari 1.05 € 2023/10/14", transaction.toString());
+    }
+
     // formDate tests
     @Test
     public void testFormDate() {
