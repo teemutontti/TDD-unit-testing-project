@@ -19,6 +19,11 @@ public class Budget {
         this.goalAmount = goal;
     }
 
+    //
+    public void addTransaction(Transaction transaction) {
+        transactions.add(transaction);
+    }
+
     // Getters
     public String getBalance() {
         return this.balanceAmount.getAmount();
@@ -38,16 +43,8 @@ public class Budget {
     public String getGoal() {
         return this.goalAmount.getAmount();
     }
-    public String getTransactions() {
-        if (this.transactions.size() > 0) {
-            String str = "";
-            for (int i=0; i<this.transactions.size(); i++) {
-                str = str + this.transactions.get(i).getDate();
-            }
-            return str;
-        } else {
-            return "No transactions found!";
-        }
+    public ArrayList<Transaction> getTransactions() {
+        return this.transactions;
     }
 
     // Setters

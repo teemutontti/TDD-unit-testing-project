@@ -2,6 +2,7 @@ package test.java;
 
 import org.junit.*;
 import main.java.Budget;
+import main.java.Transaction;
 import main.java.Amount;
 
 public class TestBudget {
@@ -15,6 +16,16 @@ public class TestBudget {
 
         Budget budget = new Budget(budgetName, month, goal);
         Assert.assertNotNull(budget);
+    }
+
+    // Function tests
+    @Test
+    public void testAddTransaction() {
+        Budget budget = new Budget("My Budget", "Lokakuu", new Amount(10000, false));
+        Transaction transaction = new Transaction("My Budget", "", 10000, false, null, true);
+        budget.addTransaction(transaction);
+        budget.addTransaction(transaction);
+        Assert.assertEquals("2023/10/14", budget.getTransactions());
     }
 
     // Getter tests
