@@ -20,6 +20,11 @@ public class Transaction {
         this.date = formDate();
     }
 
+    @Override
+    public String toString() {
+        return this.name + " " + this.amount.getAmount() + " " + this.date;
+    }
+
     // Form current date
     public String formDate() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
