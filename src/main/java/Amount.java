@@ -1,49 +1,54 @@
 package main.java;
 
 public class Amount {
-    private int euros;
     private int cents;
     private String amount;
+    private boolean isNegative;
 
-    public Amount(int euros, int cents) throws IllegalArgumentException {
-        if (cents < 100 && cents >= 0 && euros < 10000 && euros >= 0) {
-            this.euros = euros;
+    public Amount(int cents, boolean isNegative) throws IllegalArgumentException {
+        if (cents < 1000000 && cents >= 0) {
             this.cents = cents;
-            this.amount = formAmount(euros, cents);
-        } else {
-            throw new IllegalArgumentException("Amount exceeds it's limitations");
-        }
-    }
-    public Amount(int euros, int cents, boolean bypassLimitations) throws IllegalArgumentException {
-        if (bypassLimitations) {
-            this.euros = euros;
-            this.cents = cents;
-            this.amount = formAmount(euros, cents);
+            this.isNegative = isNegative;
+            this.amount = formAmount(cents, isNegative);
         } else {
             throw new IllegalArgumentException("Amount exceeds it's limitations");
         }
     }
 
-    public void add(int euros, int cents) {
-        if (cents < 100) {
-            this.euros += Math.abs(euros);
-            this.cents += Math.abs(cents);
-            this.amount = formAmount(this.euros, this.cents);
+    public void add(int cents) {
+        if (cents < 1000000) {
+            this.cents += cents;
+            this.amount = this.cents < 0
+                ? formAmount(Math.abs(this.cents), true)
+                : formAmount(Math.abs(this.cents), false);
         } else {
-            throw new IllegalArgumentException("Cents has to be under 100!");
+            throw new IllegalArgumentException("Amount exceeds it's limitations");
         }
     }
 
-    public String formAmount(int euros, int cents) {
-        if (cents < 10) {
-            return Integer.toString(euros) + ".0" + Integer.toString(cents) + " €";
-        } else {
-            return Integer.toString(euros) + "." + Integer.toString(cents) + " €";
-        }
-    }
+    public String formAmount(int cents, boolean isNegative) {
+        String centsStr = Integer.toString(cents);
 
-    public int getEuros() {
-        return this.euros;
+        if (cents == 0) {
+            return "0.00 €";
+        }
+        else if (cents < 10) {
+            return isNegative
+                ? "-0.0" + centsStr + " €"
+                : "0.0" + centsStr + " €";
+
+        } else if (cents < 100) {
+            return isNegative
+                ? "-0." + centsStr + " €"
+                : "0." + centsStr + " €";
+
+        } else {
+            double euros = cents / 100.0;
+            String eurosStr = String.format("%.2f €", euros);
+            return isNegative
+                ? "-" + eurosStr.replace(",", ".")
+                : eurosStr.replace(",", ".");
+        }
     }
 
     public int getCents() {
