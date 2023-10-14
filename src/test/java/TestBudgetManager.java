@@ -20,6 +20,14 @@ public class TestBudgetManager {
     @Test
     public void testGetBudgetsNull() {
         BudgetManager budgetManager = new BudgetManager();
-        Assert.assertEquals(new ArrayList<Budget>(), budgetManager.getBudgets());
+        Assert.assertEquals(0, budgetManager.getBudgets().size());
+    }
+
+    // addBudget() tests
+    @Test
+    public void testAddBudget() {
+        BudgetManager budgetManager = new BudgetManager();
+        budgetManager.addBudget();
+        Assert.assertEquals(1, budgetManager.getBudgets().size());
     }
 }
