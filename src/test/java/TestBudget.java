@@ -1,7 +1,5 @@
 package test.java;
 
-import java.util.ArrayList;
-
 import org.junit.*;
 import main.java.Budget;
 import main.java.Transaction;
@@ -21,7 +19,7 @@ public class TestBudget {
     }
 
     /* --- Function tests --- */
-    // addIncome() tests
+    // addTransaction() tests
     @Test
     public void testAddSingleTransaction() {
         Budget budget = new Budget("My Budget", "Lokakuu", new Amount(10000, false));
@@ -38,41 +36,50 @@ public class TestBudget {
         }
         Assert.assertEquals(10, budget.getTransactions().size());
     }
+
+    // addIncome() tests
+    @Test
+    public void testAddIncomePositive() {
+        Budget budget = new Budget("My Budget", "Lokakuu", new Amount(10000, false));
+        budget.addIncome(1000);
+        Assert.assertEquals("10.00 €", budget.getIncome());
+    }
+    @Test
+    public void testAddIncomeNegative() {
+        Budget budget = new Budget("My Budget", "Lokakuu", new Amount(10000, false));
+        budget.addIncome(-12000);
+        Assert.assertEquals("120.00 €", budget.getIncome());
+    }
+
     // addExpense() tests
     @Test
     public void testAddExpensePositive() {
-        Budget budget = new Budget("My Budget", "Lokakuu", new Amount(100,0));
-        budget.addExpense(100,50);
-        Assert.assertEquals("100.50 €", budget.getExpense());
+        Budget budget = new Budget("My Budget", "Lokakuu", new Amount(10000, false));
+        budget.addExpense(700);
+        Assert.assertEquals("7.00 €", budget.getExpense());
     }
     @Test
     public void testAddExpenseNegative() {
-        Budget budget = new Budget("My Budget", "Lokakuu", new Amount(100,0));
-        budget.addExpense(-100,-50);
-        Assert.assertEquals("100.50 €", budget.getExpense());
+        Budget budget = new Budget("My Budget", "Lokakuu", new Amount(10000, false));
+        budget.addExpense(-80);
+        Assert.assertEquals("0.80 €", budget.getExpense());
     }
-    @Test(expected = IllegalArgumentException.class)
-    public void testAddExpenseCentsOverHundred() {
-        Budget budget = new Budget("My Budget", "Lokakuu", new Amount(100,0));
-        budget.addExpense(-100,500);
-    }
-    // updateBalance tests
+
+    // updateBalance() tests
     @Test
-    public void testUpdateBalanceOnlyIncome() {
-        Budget budget = new Budget("My Budget", "Lokakuu", new Amount(100,0));
-        budget.addIncome(50, 20);
+    public void testUpdateBalancePositive() {
+        Budget budget = new Budget("My Budget", "Lokakuu", new Amount(10000, false));
+        budget.addIncome(1000);
         budget.updateBalance();
-        Assert.assertEquals("50.20 €", budget.getBalance());
+        Assert.assertEquals("10.00 €", budget.getBalance());
     }
-    /*
     @Test
-    public void testUpdateBalanceOnlyExpense() {
-        Budget budget = new Budget("My Budget", "Lokakuu", new Amount(100,0));
-        budget.addExpense(35, 10);
+    public void testUpdateBalanceNegative() {
+        Budget budget = new Budget("My Budget", "Lokakuu", new Amount(10000, false));
+        budget.addExpense(1200);
         budget.updateBalance();
-        Assert.assertEquals("-35.10 €", budget.getBalance());
+        Assert.assertEquals("-12.00 €", budget.getBalance());
     }
-    */
 
     /* --- Getter tests --- */
     @Test

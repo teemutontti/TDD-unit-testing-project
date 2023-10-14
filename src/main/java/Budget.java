@@ -19,14 +19,25 @@ public class Budget {
         this.goalAmount = goal;
     }
 
-    //
     public void addTransaction(Transaction transaction) {
         transactions.add(transaction);
     }
+
+    public void addIncome(int cents) {
+        this.incomeAmount = new Amount(this.incomeAmount.getCents() + Math.abs(cents), false);
+    }
+
+    public void addExpense(int cents) {
+        this.expenseAmount = new Amount(this.expenseAmount.getCents() + Math.abs(cents), false);
+    }
+
     public void updateBalance() {
-        int balanceUpdatedEuros = this.incomeAmount.getEuros() - this.expenseAmount.getEuros();
-        int balanceUpdatedCents = this.incomeAmount.getCents() - this.expenseAmount.getCents();
-        this.balanceAmount = new Amount(balanceUpdatedEuros, balanceUpdatedCents);
+        int newBalance = this.incomeAmount.getCents() - this.expenseAmount.getCents();
+        if (newBalance < 0) {
+            this.balanceAmount = new Amount(Math.abs(newBalance), true);
+        } else {
+            this.balanceAmount = new Amount(Math.abs(newBalance), false);
+        }
     }
 
     // Getters
