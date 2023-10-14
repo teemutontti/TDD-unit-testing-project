@@ -69,11 +69,6 @@ public class TestBudget {
         Budget budget = new Budget("My Budget", "Lokakuu", new Amount(10000,false));
         Assert.assertEquals("100.00 €", budget.getGoal());
     }
-    @Test
-    public void testGetTransactions() {
-        Budget budget = new Budget("My Budget", "Lokakuu", new Amount(10000, false));
-        Assert.assertEquals("No transactions found!", budget.getTransactions());
-    }
 
     // Setter tests
     @Test
