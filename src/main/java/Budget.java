@@ -19,9 +19,33 @@ public class Budget {
         this.goalAmount = goal;
     }
 
-    //
-    public void addTransaction(Transaction transaction) {
+    public void addTransaction(String name, String notes, int cents, boolean isNegative, String category, boolean isIncome) {
+        if (isIncome) {
+            addIncome(cents);
+        } else {
+            addExpense(cents);
+        }
+        updateBalance();
+
+        Transaction transaction = new Transaction(name, notes, cents, isNegative, category, isIncome);
         transactions.add(transaction);
+    }
+
+    public void addIncome(int cents) {
+        this.incomeAmount = new Amount(this.incomeAmount.getCents() + Math.abs(cents), false);
+    }
+
+    public void addExpense(int cents) {
+        this.expenseAmount = new Amount(this.expenseAmount.getCents() + Math.abs(cents), false);
+    }
+
+    public void updateBalance() {
+        int newBalance = this.incomeAmount.getCents() - this.expenseAmount.getCents();
+        if (newBalance < 0) {
+            this.balanceAmount = new Amount(Math.abs(newBalance), true);
+        } else {
+            this.balanceAmount = new Amount(Math.abs(newBalance), false);
+        }
     }
 
     // Getters

@@ -1,7 +1,5 @@
 package test.java;
 
-import java.util.ArrayList;
-
 import org.junit.*;
 import main.java.Budget;
 import main.java.Transaction;
@@ -9,7 +7,7 @@ import main.java.Amount;
 
 public class TestBudget {
 
-    // Constructor tests
+    /* --- Constructor tests --- */
     @Test
     public void testConstructorNotNull() {
         String budgetName = "My First Budget";
@@ -20,25 +18,73 @@ public class TestBudget {
         Assert.assertNotNull(budget);
     }
 
-    // Function tests
+    /* --- Function tests --- */
+    // addTransaction() tests
     @Test
     public void testAddSingleTransaction() {
         Budget budget = new Budget("My Budget", "Lokakuu", new Amount(10000, false));
-        Transaction transaction = new Transaction("1st transaction", "", 10000, false, null, true);
-        budget.addTransaction(transaction);
+        budget.addTransaction("1st transaction", "", 25000, false, "", true);
+        Assert.assertEquals("250.00 €", budget.getIncome());
+        Assert.assertEquals("0.00 €", budget.getExpense());
+        Assert.assertEquals("250.00 €", budget.getBalance());
         Assert.assertEquals(1, budget.getTransactions().size());
     }
     @Test
     public void testAddMultipleTransactions() {
         Budget budget = new Budget("My Budget", "Lokakuu", new Amount(10000, false));
-        Transaction transaction = new Transaction("1st transaction", "", 10000, false, null, true);
-        for (int i=0; i<10; i++) {
-            budget.addTransaction(transaction);
-        }
-        Assert.assertEquals(10, budget.getTransactions().size());
+        budget.addTransaction("1st transaction", "", 25000, false, "", true);
+        budget.addTransaction("2nd transaction", "", 10000, false, "", false);
+        Assert.assertEquals("250.00 €", budget.getIncome());
+        Assert.assertEquals("100.00 €", budget.getExpense());
+        Assert.assertEquals("150.00 €", budget.getBalance());
+        Assert.assertEquals(2, budget.getTransactions().size());
     }
 
-    // Getter tests
+    // addIncome() tests
+    @Test
+    public void testAddIncomePositive() {
+        Budget budget = new Budget("My Budget", "Lokakuu", new Amount(10000, false));
+        budget.addIncome(1000);
+        Assert.assertEquals("10.00 €", budget.getIncome());
+    }
+    @Test
+    public void testAddIncomeNegative() {
+        Budget budget = new Budget("My Budget", "Lokakuu", new Amount(10000, false));
+        budget.addIncome(-12000);
+        Assert.assertEquals("120.00 €", budget.getIncome());
+    }
+
+    // addExpense() tests
+    @Test
+    public void testAddExpensePositive() {
+        Budget budget = new Budget("My Budget", "Lokakuu", new Amount(10000, false));
+        budget.addExpense(700);
+        Assert.assertEquals("7.00 €", budget.getExpense());
+    }
+    @Test
+    public void testAddExpenseNegative() {
+        Budget budget = new Budget("My Budget", "Lokakuu", new Amount(10000, false));
+        budget.addExpense(-80);
+        Assert.assertEquals("0.80 €", budget.getExpense());
+    }
+
+    // updateBalance() tests
+    @Test
+    public void testUpdateBalancePositive() {
+        Budget budget = new Budget("My Budget", "Lokakuu", new Amount(10000, false));
+        budget.addIncome(1000);
+        budget.updateBalance();
+        Assert.assertEquals("10.00 €", budget.getBalance());
+    }
+    @Test
+    public void testUpdateBalanceNegative() {
+        Budget budget = new Budget("My Budget", "Lokakuu", new Amount(10000, false));
+        budget.addExpense(1200);
+        budget.updateBalance();
+        Assert.assertEquals("-12.00 €", budget.getBalance());
+    }
+
+    /* --- Getter tests --- */
     @Test
     public void testGetBalance() {
         Budget budget = new Budget("My Budget", "Lokakuu", new Amount(10000,false));
@@ -70,7 +116,7 @@ public class TestBudget {
         Assert.assertEquals("100.00 €", budget.getGoal());
     }
 
-    // Setter tests
+    /* --- Setter tests --- */
     @Test
     public void testSetName() {
         Budget budget = new Budget("My Budget", "Lokakuu", new Amount(10000,false));
