@@ -23,18 +23,21 @@ public class TestBudget {
     @Test
     public void testAddSingleTransaction() {
         Budget budget = new Budget("My Budget", "Lokakuu", new Amount(10000, false));
-        Transaction transaction = new Transaction("1st transaction", "", 10000, false, null, true);
-        budget.addTransaction(transaction);
+        budget.addTransaction("1st transaction", "", 25000, false, "", true);
+        Assert.assertEquals("250.00 €", budget.getIncome());
+        Assert.assertEquals("0.00 €", budget.getExpense());
+        Assert.assertEquals("250.00 €", budget.getBalance());
         Assert.assertEquals(1, budget.getTransactions().size());
     }
     @Test
     public void testAddMultipleTransactions() {
         Budget budget = new Budget("My Budget", "Lokakuu", new Amount(10000, false));
-        Transaction transaction = new Transaction("1st transaction", "", 10000, false, null, true);
-        for (int i=0; i<10; i++) {
-            budget.addTransaction(transaction);
-        }
-        Assert.assertEquals(10, budget.getTransactions().size());
+        budget.addTransaction("1st transaction", "", 25000, false, "", true);
+        budget.addTransaction("2nd transaction", "", 10000, false, "", false);
+        Assert.assertEquals("250.00 €", budget.getIncome());
+        Assert.assertEquals("100.00 €", budget.getExpense());
+        Assert.assertEquals("150.00 €", budget.getBalance());
+        Assert.assertEquals(2, budget.getTransactions().size());
     }
 
     // addIncome() tests

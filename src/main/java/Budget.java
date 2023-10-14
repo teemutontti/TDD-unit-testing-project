@@ -19,7 +19,15 @@ public class Budget {
         this.goalAmount = goal;
     }
 
-    public void addTransaction(Transaction transaction) {
+    public void addTransaction(String name, String notes, int cents, boolean isNegative, String category, boolean isIncome) {
+        if (isIncome) {
+            addIncome(cents);
+        } else {
+            addExpense(cents);
+        }
+        updateBalance();
+
+        Transaction transaction = new Transaction(name, notes, cents, isNegative, category, isIncome);
         transactions.add(transaction);
     }
 
