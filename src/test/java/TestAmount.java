@@ -1,7 +1,6 @@
 package test.java;
 
 import org.junit.*;
-import main.java.Amount;
 
 public class TestAmount {
 

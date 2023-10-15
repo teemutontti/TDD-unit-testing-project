@@ -1,4 +1,3 @@
-package main.java;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 
@@ -22,7 +21,11 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return this.name + " " + this.amount.getAmount() + " " + this.date;
+        if(this.isIncome) {
+            return this.name + ", +" + this.amount.getAmount() + ", " + this.date;
+        } else {
+            return this.name + ", -" + this.amount.getAmount() + ", " + this.date;
+        }
     }
 
     // Form current date

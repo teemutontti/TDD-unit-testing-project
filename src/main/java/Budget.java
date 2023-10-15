@@ -1,5 +1,3 @@
-package main.java;
-
 import java.util.*;
 
 public class Budget {
@@ -17,6 +15,11 @@ public class Budget {
         this.name = name;
         this.month = month;
         this.goalAmount = goal;
+    }
+
+    @Override
+    public String toString() {
+        return this.name + ", " + this.balanceAmount.getAmount() + ", " + goalAmount.getAmount();
     }
 
     public void addTransaction(String name, String notes, int cents, boolean isNegative, String category, boolean isIncome) {

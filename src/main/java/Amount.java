@@ -1,5 +1,3 @@
-package main.java;
-
 public class Amount {
     private int cents;
     private String amount;
@@ -30,21 +28,21 @@ public class Amount {
         String centsStr = Integer.toString(cents);
 
         if (cents == 0) {
-            return "0.00 €";
+            return "0.00";
         }
         else if (cents < 10) {
             return isNegative
-                ? "-0.0" + centsStr + " €"
-                : "0.0" + centsStr + " €";
+                ? "-0.0" + centsStr
+                : "0.0" + centsStr;
 
         } else if (cents < 100) {
             return isNegative
-                ? "-0." + centsStr + " €"
-                : "0." + centsStr + " €";
+                ? "-0." + centsStr
+                : "0." + centsStr;
 
         } else {
             double euros = cents / 100.0;
-            String eurosStr = String.format("%.2f €", euros);
+            String eurosStr = String.format("%.2f", euros);
             return isNegative
                 ? "-" + eurosStr.replace(",", ".")
                 : eurosStr.replace(",", ".");
