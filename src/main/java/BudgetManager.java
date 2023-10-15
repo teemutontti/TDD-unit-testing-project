@@ -1,5 +1,3 @@
-package main.java;
-
 import java.util.*;
 
 public class BudgetManager {
@@ -11,8 +9,8 @@ public class BudgetManager {
     }
 
     // Functions
-    public void addBudget() {
-        Budget budget = new Budget("Test Budget", "Lokakuu", new Amount(10000, false));
+    public void addBudget(String name, String month, Amount goal) {
+        Budget budget = new Budget(name, month, goal);
         this.budgets.add(budget);
     }
 
