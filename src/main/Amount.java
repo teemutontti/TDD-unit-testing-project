@@ -1,3 +1,5 @@
+package main;
+
 public class Amount {
     private int cents;
     private String amount;
