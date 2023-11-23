@@ -6,8 +6,9 @@ import java.time.LocalDateTime;
 public class Transaction {
     private String name;
     private String notes;
+    private int cents;
     private Amount amount;
-    private Category category;
+    private String category;
     private boolean isIncome;
     private String date;
 
@@ -15,8 +16,9 @@ public class Transaction {
     public Transaction(String name, String notes, int cents, boolean isNegative, String category, boolean isIncome) {
         this.name = name;
         this.notes = notes;
+        this.cents = cents;
         this.amount = new Amount(cents, isNegative);
-        this.category = null;  // TODO: Check if category is created
+        this.category = category; // TODO: Add modifiable category
         this.isIncome = isIncome;
         this.date = formDate();
     }
