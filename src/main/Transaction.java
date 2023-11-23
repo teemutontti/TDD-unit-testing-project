@@ -40,8 +40,20 @@ public class Transaction {
     }
 
     // Getters
+    public String getName() {
+        return this.name;
+    }
+    public String getNotes() {
+        return this.notes;
+    }
+    public int getCents() {
+        return this.cents;
+    }
     public String getAmount() {
         return this.amount.getAmount();
+    }
+    public String getCategory() {
+        return this.category;
     }
     public String getDate() {
         return this.date;
@@ -49,5 +61,4 @@ public class Transaction {
     public boolean getIsIncome() {
         return this.isIncome;
     }
-    // TODO: Add getter for category
 }
