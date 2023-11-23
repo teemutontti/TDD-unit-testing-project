@@ -39,21 +39,33 @@ public class TestTransaction {
     }
 
     // Getter tests
+    Transaction getterTestTransaction = new Transaction("Näyttö", "jotain", 10000, false, "elektroniikka", false);
+    @Test
+    public void testGetName() {
+        assertEquals("Näyttö", getterTestTransaction.getName());
+    }
+    @Test
+    public void testGetNotes() {
+        assertEquals("jotain", getterTestTransaction.getNotes());
+    }
+    @Test
+    public void testGetCents() {
+        assertEquals(10000, getterTestTransaction.getCents());
+    }
     @Test
     public void testGetAmount() {
-        Transaction transaction = new Transaction("Näyttö", "", 10000, false, "", false);
-        assertEquals("100.00", transaction.getAmount());
-        assertNotEquals("100.0", transaction.getAmount());
+        assertEquals("100.00", getterTestTransaction.getAmount());
+    }
+    @Test
+    public void testGetCategory() {
+        assertEquals("elektroniikka", getterTestTransaction.getCategory());
     }
     @Test
     public void testGetDate() {
-        Transaction transaction = new Transaction("Patukka", "", 1, false, "", true);
-        assertEquals(currentDate, transaction.getDate());
+        assertEquals(currentDate, getterTestTransaction.getDate());
     }
     @Test
     public void testGetIsIncome() {
-        Transaction transaction = new Transaction("Prosessori Power", "", 500, false, "", false);
-        assertEquals(false, transaction.getIsIncome());
-        assertNotEquals(true, transaction.getIsIncome());
+        assertEquals(false, getterTestTransaction.getIsIncome());
     }
 }
