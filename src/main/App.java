@@ -9,15 +9,27 @@ class App {
     static Budget budget;
     static boolean runMain;
     static boolean runBudgetMenu;
+    private static boolean dev = true;
 
     public static void main(String[] args) {
-        scanner = new Scanner(System.in);
-        bm = new BudgetManager();
-        runMain = true;
-        formCategories();
+        if (dev) {
+            BudgetManager bm = new BudgetManager();
+            bm.addBudget("My Very Own Budget", "Syyskuu", new Amount(10000, false));
+            bm.addBudget("My Very Own Budget", "Lokakuu", new Amount(15000, false));
+            bm.addBudget("My Very Own Budget", "Marraskuu", new Amount(20000, false));
+            bm.getBudgets().get(0).addTransaction("Huulipuna", "", 200, false, "meikki", false);
+            bm.getBudgets().get(0).addTransaction("Opintotuki", "kelalta terveiset", 27000, false, "tulo", true);
+            bm.getBudgets().get(1).addTransaction("Opintotuki", "kelalta terveiset", 27000, false, "tulo", true);
+            bm.outputData();
+        } else {
+            scanner = new Scanner(System.in);
+            bm = new BudgetManager();
+            runMain = true;
+            formCategories();
 
-        while(runMain) {
-            showMainMenu();
+            while(runMain) {
+                showMainMenu();
+            }
         }
     }
 
