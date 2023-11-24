@@ -12,22 +12,20 @@ class App {
     private static boolean dev = true;
 
     public static void main(String[] args) {
+        BudgetManager bm = new BudgetManager();
+        bm.importData();
         if (dev) {
-            BudgetManager bm = new BudgetManager();
-            bm.addBudget("My Very Own Budget", "Syyskuu", new Amount(10000, false));
-            bm.addBudget("My Very Own Budget", "Lokakuu", new Amount(15000, false));
-            bm.addBudget("My Very Own Budget", "Marraskuu", new Amount(20000, false));
+            bm.addBudget("My 1st Budget", "Syyskuu", new Amount(10000, false));
             bm.getBudgets().get(0).addTransaction("Huulipuna", "", 200, false, "meikki", false);
-            bm.getBudgets().get(0).addTransaction("Opintotuki", "kelalta terveiset", 27000, false, "tulo", true);
-            bm.getBudgets().get(1).addTransaction("Opintotuki", "kelalta terveiset", 27000, false, "tulo", true);
-            bm.outputData();
+            bm.exportData();
+            bm.importData();
         } else {
             scanner = new Scanner(System.in);
             bm = new BudgetManager();
             runMain = true;
             formCategories();
 
-            while(runMain) {
+            while (runMain) {
                 showMainMenu();
             }
         }
@@ -42,7 +40,7 @@ class App {
         System.out.print("Choice: ");
         int choice = Integer.parseInt(scanner.nextLine());
 
-        switch(choice) {
+        switch (choice) {
             case 1:
                 addBudget();
                 break;
@@ -50,6 +48,7 @@ class App {
                 listBudgets();
                 break;
             case 3:
+                bm.exportData();
                 runMain = false;
                 break;
         }
@@ -66,13 +65,13 @@ class App {
         System.out.print("Saving goal in euros: ");
         int goal = Integer.parseInt(scanner.nextLine());
 
-        bm.addBudget(name, month, new Amount(goal*100, false));
+        bm.addBudget(name, month, new Amount(goal * 100, false));
     }
 
     static void listBudgets() {
         System.out.println();
         if (bm.getBudgets().size() > 0) {
-            for (int i=0; i<bm.getBudgets().size(); i++) {
+            for (int i = 0; i < bm.getBudgets().size(); i++) {
                 System.out.println(i + ": " + bm.getBudgets().get(i));
             }
 
@@ -86,7 +85,7 @@ class App {
 
     static void showBudgetMenu() {
         runBudgetMenu = true;
-        while(runBudgetMenu) {
+        while (runBudgetMenu) {
             System.out.println("\nBudget: " + budget.getName());
             System.out.println("Balance: " + budget.getBalance() + " €");
             System.out.println("Goal: " + budget.getGoal() + " €\n");
@@ -96,7 +95,7 @@ class App {
             System.out.print("Choice: ");
             int choice = Integer.parseInt(scanner.nextLine());
 
-            switch(choice) {
+            switch (choice) {
                 case 1:
                     showTransactionMenu();
                     break;
@@ -125,9 +124,9 @@ class App {
         String isIncome = scanner.nextLine();
 
         amount *= 100;
-        int amountInt = (int)amount;
+        int amountInt = (int) amount;
 
-        if(isIncome.charAt(0) == 'y') {
+        if (isIncome.charAt(0) == 'y') {
             budget.addTransaction(name, notes, amountInt, false, category, true);
         } else {
             budget.addTransaction(name, notes, amountInt, false, category, false);
@@ -137,7 +136,7 @@ class App {
     static void listTransactions() {
         System.out.println();
         if (budget.getTransactions().size() > 0) {
-            for(int i=0; i<budget.getTransactions().size(); i++) {
+            for (int i = 0; i < budget.getTransactions().size(); i++) {
                 System.out.println(i + ": " + budget.getTransactions().get(i));
             }
 
