@@ -79,48 +79,58 @@ public class BudgetManager {
         }
     }
 
-    public String toJson() {
-        String jsonString = "[\n    {\n";
+    public boolean importData() {
+        try {
+            // Clearing the array before importing
+            this.budgets = new ArrayList<Budget>();
 
-        for (int i=0; i<this.budgets.size(); i++) {
-            Budget budget = this.budgets.get(i);
+            int budgetAmount = new File("data/budgets/").listFiles().length - 1;
+            for (int i = 0; i < budgetAmount; i++) {
+                FileReader infoReader = new FileReader("data/budgets/b" + i + "_info.csv");
+                BufferedReader infoBufferedReader = new BufferedReader(infoReader);
 
-            jsonString += "        \"id\": "+i+",\n";
-            jsonString += "        \"name\": \""+budget.getName()+"\",\n";
-            jsonString += "        \"month\": \""+budget.getMonth()+"\",\n";
-            jsonString += "        \"goal\": "+budget.getGoal()+",\n";
-            jsonString += "        \"transactions\": [";
-
-            if (budget.getTransactions().size() > 0) {
-                jsonString += "\n";
-                jsonString += "            {\n";
-                for (int j=0; j<budget.getTransactions().size(); j++) {
-                    Transaction transaction = budget.getTransactions().get(j);
-                    jsonString += "                \"id\": "+j+",\n";
-                    jsonString += "                \"name\": \""+transaction.getName()+"\",\n";
-                    jsonString += "                \"notes\": \""+transaction.getNotes()+"\",\n";
-                    jsonString += "                \"cents\": "+transaction.getCents()+",\n";
-                    jsonString += "                \"category\": \""+transaction.getCategory()+"\",\n";
-                    jsonString += "                \"isIncome\": \""+transaction.getIsIncome()+"\"\n";
-                    if (j < budget.getTransactions().size()-1) {
-                        jsonString += "            },\n";
-                        jsonString += "            {\n";
-                    } else {
-                        jsonString += "            }\n";
-                    }
+                String line = infoBufferedReader.readLine();
+                if (line != null) {
+                    String[] values = line.split(";");
+                    String name = values[1];
+                    String month = values[2];
+                    int goal = Integer.parseInt(values[3].replace(".", ""));
+                    this.addBudget(name, month, new Amount(goal, false));
                 }
-                jsonString += "        ]\n";
-            } else {
-                jsonString += "]\n";
+                infoBufferedReader.close();
+
+                Path path = Paths.get("data/budgets/transactions/b" + i + "_transactions.csv");
+
+                if (Files.exists(path)) {
+                    FileReader transactionsReader = new FileReader(
+                            "data/budgets/transactions/b" + i + "_transactions.csv");
+                    BufferedReader transactionsBufferedReader = new BufferedReader(transactionsReader);
+
+                    while ((line = transactionsBufferedReader.readLine()) != null) {
+                        String[] values = line.split(";");
+                        String name = values[1];
+                        String notes = values[2];
+                        int cents = Integer.parseInt(values[3]);
+                        String category = values[4];
+                        boolean isIncome;
+
+                        if (values[5].equals("false")) {
+                            isIncome = false;
+                        } else {
+                            isIncome = true;
+                        }
+                        this.budgets.get(i).addTransaction(name, notes, cents, false, category, isIncome);
+                    }
+                    transactionsBufferedReader.close();
+                }
             }
-            if (i < this.budgets.size()-1) {
-                jsonString += "    },\n";
-                jsonString += "    {\n";
-            }
+            return true;
+
+        } catch (IOException e) {
+            System.err.println(e);
+            e.printStackTrace();
+            return false;
         }
-        jsonString += "    }\n";
-        jsonString += "]";
-        return jsonString;
     }
 
     // Getters
