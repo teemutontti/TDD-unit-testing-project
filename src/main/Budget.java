@@ -21,10 +21,11 @@ public class Budget {
 
     @Override
     public String toString() {
-        return this.name + ", " + this.balanceAmount.getAmount() + ", " + goalAmount.getAmount();
+        return this.name + "," + this.balanceAmount.getAmount() + "," + goalAmount.getAmount();
     }
 
-    public void addTransaction(String name, String notes, int cents, boolean isNegative, String category, boolean isIncome) {
+    public void addTransaction(String name, String notes, int cents, boolean isNegative, String category,
+            boolean isIncome) {
         if (isIncome) {
             addIncome(cents);
         } else {
@@ -57,21 +58,27 @@ public class Budget {
     public String getBalance() {
         return this.balanceAmount.getAmount();
     }
+
     public String getIncome() {
         return this.incomeAmount.getAmount();
     }
+
     public String getExpense() {
         return this.expenseAmount.getAmount();
     }
+
     public String getName() {
         return this.name;
     }
+
     public String getMonth() {
         return this.month;
     }
+
     public String getGoal() {
         return this.goalAmount.getAmount();
     }
+
     public ArrayList<Transaction> getTransactions() {
         return this.transactions;
     }
@@ -80,6 +87,7 @@ public class Budget {
     public void setName(String name) {
         this.name = name;
     }
+
     public void setMonth(String month) {
         this.month = month;
     }
