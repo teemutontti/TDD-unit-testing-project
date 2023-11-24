@@ -37,13 +37,15 @@ public class TestBudgetManager {
     }
 
     @Test
-    public void testOutputData() {
-        BudgetManager budgetManager = new BudgetManager();
-        budgetManager.addBudget("My 1st Budget", "Lokakuu", new Amount(250, false));
-        Budget budget = budgetManager.getBudgets().get(0);
+    public void testExportData() {
+        BudgetManager bm = new BudgetManager();
+        bm.addBudget("My 1st Budget", "Lokakuu", new Amount(250, false));
+        bm.addBudget("My 2st Budget", "Marraskuu", new Amount(100, false));
+        Budget budget = bm.getBudgets().get(0);
         budget.addTransaction("Suklaa", "jotain", 500, false, "herkut", false);
-        budget.addTransaction("Tietokone", "jotain vaan", 45000, false, "elektroniikka", false);
-        budgetManager.outputData();
+        budget.addTransaction("Tietokone", "jotain vaan", 1000, false, "elektroniikka", false);
+        budget.addTransaction("Hiiri", "olli tää on se", 3500, false, "elektroniikka", false);
+        assertEquals(true, bm.exportData());
     }
 
     @Test
