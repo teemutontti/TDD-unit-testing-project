@@ -2,7 +2,13 @@ package main;
 
 import java.util.*;
 import java.io.FileWriter;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class BudgetManager {
     ArrayList<Budget> budgets;
@@ -18,15 +24,58 @@ public class BudgetManager {
         this.budgets.add(budget);
     }
 
-    public void outputData() {
+    public boolean exportData() {
         try {
-            FileWriter fw = new FileWriter("src/data.json");
-            fw.write(this.toJson());
-            fw.close();
-            System.out.println("Data written successfully!");
+            // Clear folder before export
+            Path dir = Paths.get("data/budgets");
+            Files
+                    .walk(dir)
+                    .sorted(Comparator.reverseOrder())
+                    .forEach(path -> {
+                        try {
+                            Files.delete(path);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
+
+            for (int i = 0; i < this.budgets.size(); i++) {
+                Budget budget = this.budgets.get(i);
+
+                String basePath = "data/budgets/";
+                String budgetsPath = basePath + "b" + i + "_info.csv";
+                String transactionsPath = basePath + "transactions/b" + i + "_transactions.csv";
+                new File(basePath + "transactions/").mkdirs();
+
+                FileWriter budgetsWriter = new FileWriter(budgetsPath);
+                budgetsWriter.write(i + ";"
+                        + budget.getName() + ";"
+                        + budget.getMonth() + ";"
+                        + budget.getGoal());
+                budgetsWriter.close();
+
+                if (budget.getTransactions().size() > 0) {
+                    FileWriter transactionsWriter = new FileWriter(transactionsPath);
+
+                    for (int j = 0; j < budget.getTransactions().size(); j++) {
+                        Transaction trans = budget.getTransactions().get(j);
+
+                        transactionsWriter.write(j + ";"
+                                + trans.getName() + ";"
+                                + trans.getNotes() + ";"
+                                + trans.getCents() + ";"
+                                + trans.getCategory() + ";"
+                                + trans.getIsIncome() + "\n");
+                    }
+                    transactionsWriter.close();
+                }
+            }
+            return true;
+
         } catch (IOException e) {
             System.err.println(e);
             e.printStackTrace();
+            return false;
         }
     }
 
