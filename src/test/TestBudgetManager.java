@@ -17,23 +17,23 @@ public class TestBudgetManager {
     // Constructor tests
     @Test
     public void testConstructor() {
-        BudgetManager budgetManager = new BudgetManager();
-        assertNotNull(budgetManager);
+        BudgetManager bm = new BudgetManager();
+        assertNotNull(bm);
     }
 
     // getBudgets() tests
     @Test
     public void testGetBudgetsNull() {
-        BudgetManager budgetManager = new BudgetManager();
-        assertEquals(0, budgetManager.getBudgets().size());
+        BudgetManager bm = new BudgetManager();
+        assertEquals(0, bm.getBudgets().size());
     }
 
     // addBudget() tests
     @Test
     public void testAddBudget() {
-        BudgetManager budgetManager = new BudgetManager();
-        budgetManager.addBudget("My Budget", "lokakuu", new Amount(10000, false));
-        assertEquals(1, budgetManager.getBudgets().size());
+        BudgetManager bm = new BudgetManager();
+        bm.addBudget("My Budget", "lokakuu", new Amount(10000, false));
+        assertEquals(1, bm.getBudgets().size());
     }
 
     @Test
