@@ -9,29 +9,22 @@ class App {
     static Budget budget;
     static boolean runMain;
     static boolean runBudgetMenu;
-    private static boolean dev = true;
+    private static boolean dev = false;
 
     public static void main(String[] args) {
         BudgetManager bm = new BudgetManager();
         bm.importData();
-        if (dev) {
-            bm.addBudget("My 1st Budget", "Syyskuu", new Amount(10000, false));
-            bm.getBudgets().get(0).addTransaction("Huulipuna", "", 200, false, "meikki", false);
-            bm.exportData();
-            bm.importData();
-        } else {
-            scanner = new Scanner(System.in);
-            bm = new BudgetManager();
-            runMain = true;
-            formCategories();
+        scanner = new Scanner(System.in);
+        runMain = true;
+        formCategories();
 
-            while (runMain) {
-                showMainMenu();
-            }
+        while (runMain) {
+            showMainMenu(bm);
         }
+
     }
 
-    static void showMainMenu() {
+    static void showMainMenu(BudgetManager bm) {
         System.out.println("\n=== BudgetPal ===");
         System.out.println("1 = Add new budget");
         System.out.println("2 = Open budget");
@@ -42,10 +35,10 @@ class App {
 
         switch (choice) {
             case 1:
-                addBudget();
+                addBudget(bm);
                 break;
             case 2:
-                listBudgets();
+                listBudgets(bm);
                 break;
             case 3:
                 bm.exportData();
@@ -54,7 +47,7 @@ class App {
         }
     }
 
-    static void addBudget() {
+    static void addBudget(BudgetManager bm) {
         System.out.println("\nADD BUDGET");
         System.out.print("Budget name: ");
         String name = scanner.nextLine();
@@ -66,9 +59,10 @@ class App {
         int goal = Integer.parseInt(scanner.nextLine());
 
         bm.addBudget(name, month, new Amount(goal * 100, false));
+        bm.exportData();
     }
 
-    static void listBudgets() {
+    static void listBudgets(BudgetManager bm) {
         System.out.println();
         if (bm.getBudgets().size() > 0) {
             for (int i = 0; i < bm.getBudgets().size(); i++) {
@@ -78,17 +72,23 @@ class App {
             // Selecting the budget
             System.out.print("Id: ");
             int id = Integer.parseInt(scanner.nextLine());
-            budget = bm.getBudgets().get(id);
-            showBudgetMenu();
+            if (id < bm.getBudgets().size()) {
+                budget = bm.getBudgets().get(id);
+                showBudgetMenu(bm, budget);
+            } else {
+                System.out.println("There's no budget with the id of "+id);
+            }
+        } else {
+            System.out.println("No budgets saved");
         }
     }
 
-    static void showBudgetMenu() {
+    static void showBudgetMenu(BudgetManager bm, Budget budget) {
         runBudgetMenu = true;
         while (runBudgetMenu) {
             System.out.println("\nBudget: " + budget.getName());
-            System.out.println("Balance: " + budget.getBalance() + " €");
-            System.out.println("Goal: " + budget.getGoal() + " €\n");
+            System.out.println("Balance: " + budget.getBalance() + " euros");
+            System.out.println("Goal: " + budget.getGoal() + " euros\n");
             System.out.println("1 = Add transaction");
             System.out.println("2 = Show transactions");
             System.out.println("3 = Exit");
@@ -97,7 +97,7 @@ class App {
 
             switch (choice) {
                 case 1:
-                    showTransactionMenu();
+                    showTransactionMenu(bm);
                     break;
                 case 2:
                     listTransactions();
@@ -109,7 +109,7 @@ class App {
         }
     }
 
-    static void showTransactionMenu() {
+    static void showTransactionMenu(BudgetManager bm) {
         // Transaction takes: name, notes, cents, isNegative, category, isIncome
         System.out.println("\nADD TRANSACTION");
         System.out.print("Name: ");
@@ -131,6 +131,7 @@ class App {
         } else {
             budget.addTransaction(name, notes, amountInt, false, category, false);
         }
+        bm.exportData();
     }
 
     static void listTransactions() {
@@ -140,6 +141,8 @@ class App {
                 System.out.println(i + ": " + budget.getTransactions().get(i));
             }
 
+        } else {
+            System.out.println("No transactions saved");
         }
     }
 
