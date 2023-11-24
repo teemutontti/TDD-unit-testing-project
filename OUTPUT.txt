@@ -1,0 +1,8 @@
+!!!SUCCESS!!!
+
+All tests completed in 60 ms.
+Total tests run: 56
+Passed: 56
+Failed: 0
+
+Output logged in OUTPUT.txt.
