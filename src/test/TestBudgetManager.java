@@ -49,101 +49,24 @@ public class TestBudgetManager {
     }
 
     @Test
-    public void testToJsonNoTransactions() {
-        BudgetManager budgetManager = new BudgetManager();
-        budgetManager.addBudget("My 1st Budget", "Lokakuu", new Amount(250, false));
-        String expected = "";
-        expected += "[\n";
-        expected += "    {\n";
-        expected += "        \"id\": 0,\n";
-        expected += "        \"name\": \"My 1st Budget\",\n";
-        expected += "        \"month\": \"Lokakuu\",\n";
-        expected += "        \"goal\": 2.50,\n";
-        expected += "        \"transactions\": []\n";
-        expected += "    }\n";
-        expected += "]";
-        assertEquals(expected, budgetManager.toJson());
-    }
-    @Test
-    public void testToJsonWithTransactions() {
-        BudgetManager budgetManager = new BudgetManager();
-        budgetManager.addBudget("My 1st Budget", "Lokakuu", new Amount(250, false));
-        Budget budget = budgetManager.getBudgets().get(0);
+    public void testImportData() {
+        // Creating the budget manager and adding 2 budgets
+        BudgetManager bm = new BudgetManager();
+        bm.addBudget("My 1st Budget", "Lokakuu", new Amount(250, false));
+        bm.addBudget("My 2nd Budget", "Huhtikuu", new Amount(100, false));
+
+        // Getting the 1st budget and adding 3 transactions in it
+        Budget budget = bm.getBudgets().get(0);
         budget.addTransaction("Suklaa", "jotain", 500, false, "herkut", false);
         budget.addTransaction("Tietokone", "jotain vaan", 45000, false, "elektroniikka", false);
-        assertEquals(budget.getName(), "My 1st Budget");
-        String expected = "";
-        expected += "[\n";
-        expected += "    {\n";
-        expected += "        \"id\": 0,\n";
-        expected += "        \"name\": \"My 1st Budget\",\n";
-        expected += "        \"month\": \"Lokakuu\",\n";
-        expected += "        \"goal\": 2.50,\n";
-        expected += "        \"transactions\": [\n";
-        expected += "            {\n";
-        expected += "                \"id\": 0,\n";
-        expected += "                \"name\": \"Suklaa\",\n";
-        expected += "                \"notes\": \"jotain\",\n";
-        expected += "                \"cents\": 500,\n";
-        expected += "                \"category\": \"herkut\",\n";
-        expected += "                \"isIncome\": \"false\"\n";
-        expected += "            },\n";
-        expected += "            {\n";
-        expected += "                \"id\": 1,\n";
-        expected += "                \"name\": \"Tietokone\",\n";
-        expected += "                \"notes\": \"jotain vaan\",\n";
-        expected += "                \"cents\": 45000,\n";
-        expected += "                \"category\": \"elektroniikka\",\n";
-        expected += "                \"isIncome\": \"false\"\n";
-        expected += "            }\n";
-        expected += "        ]\n";
-        expected += "    }\n";
-        expected += "]";
-        assertEquals(expected, budgetManager.toJson());
-    }
-    @Test
-    public void testToJsonWithMultipleBudgets() {
-        BudgetManager budgetManager = new BudgetManager();
-        budgetManager.addBudget("My 1st Budget", "Lokakuu", new Amount(25000, false));
-        budgetManager.addBudget("My 2st Budget", "Marraskuu", new Amount(25000, false));
-        Budget budget = budgetManager.getBudgets().get(0);
-        budget.addTransaction("Suklaa", "jotain", 500, false, "herkut", false);
-        budget.addTransaction("Tietokone", "jotain vaan", 45000, false, "elektroniikka", false);
-        assertEquals(budget.getName(), "My 1st Budget");
-        String expected = "";
-        expected += "[\n";
-        expected += "    {\n";
-        expected += "        \"id\": 0,\n";
-        expected += "        \"name\": \"My 1st Budget\",\n";
-        expected += "        \"month\": \"Lokakuu\",\n";
-        expected += "        \"goal\": 250.00,\n";
-        expected += "        \"transactions\": [\n";
-        expected += "            {\n";
-        expected += "                \"id\": 0,\n";
-        expected += "                \"name\": \"Suklaa\",\n";
-        expected += "                \"notes\": \"jotain\",\n";
-        expected += "                \"cents\": 500,\n";
-        expected += "                \"category\": \"herkut\",\n";
-        expected += "                \"isIncome\": \"false\"\n";
-        expected += "            },\n";
-        expected += "            {\n";
-        expected += "                \"id\": 1,\n";
-        expected += "                \"name\": \"Tietokone\",\n";
-        expected += "                \"notes\": \"jotain vaan\",\n";
-        expected += "                \"cents\": 45000,\n";
-        expected += "                \"category\": \"elektroniikka\",\n";
-        expected += "                \"isIncome\": \"false\"\n";
-        expected += "            }\n";
-        expected += "        ]\n";
-        expected += "    },\n";
-        expected += "    {\n";
-        expected += "        \"id\": 1,\n";
-        expected += "        \"name\": \"My 2st Budget\",\n";
-        expected += "        \"month\": \"Marraskuu\",\n";
-        expected += "        \"goal\": 250.00,\n";
-        expected += "        \"transactions\": []\n";
-        expected += "    }\n";
-        expected += "]";
-        assertEquals(expected, budgetManager.toJson());
+        budget.addTransaction("Hiiri", "olli tää on se", 5000, false, "elektroniikka", false);
+
+        // Exporting data to file
+        bm.exportData();
+
+        // Testing import data to get 2 budgets and 3 transactions
+        assertEquals(true, bm.importData());
+        assertEquals(2, bm.getBudgets().size());
+        assertEquals(3, bm.getBudgets().get(0).getTransactions().size());
     }
 }
