@@ -24,6 +24,17 @@ public class TestTransaction {
         assertNotNull(transaction);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testCentsZero() {
+        new Transaction("Hiiri", "", 0, false, "", false);
+    }
+
+    @Test
+    public void testCentsJustOverZero() {
+        Transaction transaction = new Transaction("Hiiri", "", 1, false, "", false);
+        assertEquals(1, transaction.getCents());
+    }
+
     // toString tests
     @Test
     public void testToString() {
