@@ -133,7 +133,8 @@ class App {
             for (int i = 0; i < budget.getTransactions().size(); i++) {
                 System.out.println(i + ": " + budget.getTransactions().get(i));
             }
-
+        } else {
+            System.out.println("No transactions!");
         }
     }
 
