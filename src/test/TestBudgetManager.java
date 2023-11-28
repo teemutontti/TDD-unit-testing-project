@@ -94,4 +94,12 @@ public class TestBudgetManager {
         assertEquals(2, bm.getBudgets().size());
         assertEquals(3, bm.getBudgets().get(0).getTransactions().size());
     }
+
+    @Test
+    public void testEmptyImport() {
+        BudgetManager bm = new BudgetManager();
+        bm.exportData();
+        assertEquals(true, bm.importData());
+        assertEquals(0, bm.getBudgets().size());
+    }
 }
