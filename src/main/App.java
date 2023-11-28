@@ -70,6 +70,8 @@ class App {
             int id = Integer.parseInt(scanner.nextLine());
             budget = bm.getBudgets().get(id);
             showBudgetMenu();
+        } else {
+            System.out.println("No budgets!");
         }
     }
 
