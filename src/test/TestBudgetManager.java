@@ -51,6 +51,26 @@ public class TestBudgetManager {
         budget.addTransaction("Tietokone", "jotain vaan", 1000, false, "elektroniikka", false);
         budget.addTransaction("Hiiri", "olli tää on se", 3500, false, "elektroniikka", false);
         assertEquals(true, bm.exportData());
+
+        Path pathToBudgetInfo = Paths.get("data/budgets/b0_info.csv");
+        assertEquals(true, Files.exists(pathToBudgetInfo));
+
+        Path pathToBudgetTransactions = Paths.get("data/budgets/transactions/b0_transactions.csv");
+        assertEquals(true, Files.exists(pathToBudgetTransactions));
+    }
+
+    @Test
+    public void testEmptyExport() {
+        BudgetManager bm = new BudgetManager();
+        assertEquals(true, bm.exportData());
+
+        // After exporting empty data budgets folder is deleted...
+        Path pathToBudgets = Paths.get("data/budgets/");
+        assertEquals(false, Files.exists(pathToBudgets));
+
+        // but data folder is kept.
+        Path pathToData = Paths.get("data/");
+        assertEquals(true, Files.exists(pathToData));
     }
 
     @Test
