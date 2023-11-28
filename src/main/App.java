@@ -55,6 +55,7 @@ class App {
         int goal = Integer.parseInt(scanner.nextLine());
 
         bm.addBudget(name, month, new Amount(goal * 100, false));
+        bm.exportData();
     }
 
     static void listBudgets() {
