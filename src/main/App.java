@@ -4,30 +4,19 @@ import java.util.*;
 
 class App {
     static Scanner scanner;
-    static ArrayList<String> categories;
     static BudgetManager bm;
     static Budget budget;
     static boolean runMain;
     static boolean runBudgetMenu;
-    private static boolean dev = true;
 
     public static void main(String[] args) {
-        BudgetManager bm = new BudgetManager();
+        bm = new BudgetManager();
         bm.importData();
-        if (dev) {
-            bm.addBudget("My 1st Budget", "Syyskuu", new Amount(10000, false));
-            bm.getBudgets().get(0).addTransaction("Huulipuna", "", 200, false, "meikki", false);
-            bm.exportData();
-            bm.importData();
-        } else {
-            scanner = new Scanner(System.in);
-            bm = new BudgetManager();
-            runMain = true;
-            formCategories();
+        scanner = new Scanner(System.in);
 
-            while (runMain) {
-                showMainMenu();
-            }
+        runMain = true;
+        while (runMain) {
+            showMainMenu();
         }
     }
 
