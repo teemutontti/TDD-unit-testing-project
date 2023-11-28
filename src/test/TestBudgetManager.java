@@ -42,7 +42,7 @@ public class TestBudgetManager {
     }
 
     @Test
-    public void testExportData() {
+    public void testExportDataAndFileStructure() {
         BudgetManager bm = new BudgetManager();
         bm.addBudget("My 1st Budget", "Lokakuu", new Amount(250, false));
         bm.addBudget("My 2st Budget", "Marraskuu", new Amount(100, false));
