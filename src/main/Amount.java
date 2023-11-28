@@ -19,8 +19,8 @@ public class Amount {
         if (cents < 1000000) {
             this.cents += cents;
             this.amount = this.cents < 0
-                ? formAmount(Math.abs(this.cents), true)
-                : formAmount(Math.abs(this.cents), false);
+                    ? formAmount(Math.abs(this.cents), true)
+                    : formAmount(Math.abs(this.cents), false);
         } else {
             throw new IllegalArgumentException("Amount exceeds it's limitations");
         }
@@ -31,23 +31,22 @@ public class Amount {
 
         if (cents == 0) {
             return "0.00";
-        }
-        else if (cents < 10) {
+        } else if (cents < 10) {
             return isNegative
-                ? "-0.0" + centsStr
-                : "0.0" + centsStr;
+                    ? "-0.0" + centsStr
+                    : "0.0" + centsStr;
 
         } else if (cents < 100) {
             return isNegative
-                ? "-0." + centsStr
-                : "0." + centsStr;
+                    ? "-0." + centsStr
+                    : "0." + centsStr;
 
         } else {
             double euros = cents / 100.0;
             String eurosStr = String.format("%.2f", euros);
             return isNegative
-                ? "-" + eurosStr.replace(",", ".")
-                : eurosStr.replace(",", ".");
+                    ? "-" + eurosStr.replace(",", ".")
+                    : eurosStr.replace(",", ".");
         }
     }
 
@@ -57,5 +56,9 @@ public class Amount {
 
     public String getAmount() {
         return this.amount;
+    }
+
+    public boolean getIsNegative() {
+        return this.isNegative;
     }
 }
