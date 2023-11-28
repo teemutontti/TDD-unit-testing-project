@@ -96,6 +96,7 @@ class App {
                     break;
                 case 3:
                     runBudgetMenu = false;
+                    bm.exportData();
                     break;
             }
         }
