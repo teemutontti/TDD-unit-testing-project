@@ -9,8 +9,7 @@ Data is saved in data-folder as CSV-files.
 
 ## Running the App
 
-At the root of the project type `javac -d bin src/main/*.java`
-and then `java -cp bin main/App`.
+At the root of the project type run the app with: `javac -d bin src/main/*.java && java -cp bin main/App`.
 
 ## Running the Tests
 
