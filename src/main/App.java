@@ -137,28 +137,4 @@ class App {
             System.out.println("No transactions!");
         }
     }
-
-    static void formCategories() {
-        categories = new ArrayList<String>();
-        categories.add("Housing");
-        categories.add("Transportation");
-        categories.add("Groceries");
-        categories.add("Dining out");
-        categories.add("Entertainment");
-        categories.add("Shopping");
-        categories.add("Health");
-        categories.add("Fitness");
-        categories.add("Education");
-        categories.add("Savings");
-        categories.add("Debt payments");
-        categories.add("Charity");
-        categories.add("Travel");
-        categories.add("Utilities");
-        categories.add("Income");
-        categories.add("Pet");
-        categories.add("Hobbies");
-        categories.add("Insurance");
-        categories.add("Gas station");
-        categories.add("Other");
-    }
 }
