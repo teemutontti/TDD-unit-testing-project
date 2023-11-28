@@ -79,8 +79,8 @@ class App {
         runBudgetMenu = true;
         while (runBudgetMenu) {
             System.out.println("\nBudget: " + budget.getName());
-            System.out.println("Balance: " + budget.getBalance() + " €");
-            System.out.println("Goal: " + budget.getGoal() + " €\n");
+            System.out.println("Balance: " + budget.getBalance() + " e");
+            System.out.println("Goal: " + budget.getGoal() + " e\n");
             System.out.println("1 = Add transaction");
             System.out.println("2 = Show transactions");
             System.out.println("3 = Exit");
