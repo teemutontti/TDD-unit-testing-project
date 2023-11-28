@@ -89,44 +89,47 @@ public class BudgetManager {
             // Clearing the array before importing
             this.budgets = new ArrayList<Budget>();
 
-            int budgetAmount = new File("data/budgets/").listFiles().length - 1;
-            for (int i = 0; i < budgetAmount; i++) {
-                FileReader infoReader = new FileReader("data/budgets/b" + i + "_info.csv");
-                BufferedReader infoBufferedReader = new BufferedReader(infoReader);
+            Path pathToBudgets = Paths.get("data/budgets/");
+            if (Files.exists(pathToBudgets)) {
+                int budgetAmount = new File("data/budgets/").listFiles().length - 1;
+                for (int i = 0; i < budgetAmount; i++) {
+                    FileReader infoReader = new FileReader("data/budgets/b" + i + "_info.csv");
+                    BufferedReader infoBufferedReader = new BufferedReader(infoReader);
 
-                String line = infoBufferedReader.readLine();
-                if (line != null) {
-                    String[] values = line.split(";");
-                    String name = values[1];
-                    String month = values[2];
-                    int goal = Integer.parseInt(values[3].replace(".", ""));
-                    this.addBudget(name, month, new Amount(goal, false));
-                }
-                infoBufferedReader.close();
-
-                Path path = Paths.get("data/budgets/transactions/b" + i + "_transactions.csv");
-
-                if (Files.exists(path)) {
-                    FileReader transactionsReader = new FileReader(
-                            "data/budgets/transactions/b" + i + "_transactions.csv");
-                    BufferedReader transactionsBufferedReader = new BufferedReader(transactionsReader);
-
-                    while ((line = transactionsBufferedReader.readLine()) != null) {
+                    String line = infoBufferedReader.readLine();
+                    if (line != null) {
                         String[] values = line.split(";");
                         String name = values[1];
-                        String notes = values[2];
-                        int cents = Integer.parseInt(values[3]);
-                        String category = values[4];
-                        boolean isIncome;
-
-                        if (values[5].equals("false")) {
-                            isIncome = false;
-                        } else {
-                            isIncome = true;
-                        }
-                        this.budgets.get(i).addTransaction(name, notes, cents, false, category, isIncome);
+                        String month = values[2];
+                        int goal = Integer.parseInt(values[3].replace(".", ""));
+                        this.addBudget(name, month, new Amount(goal, false));
                     }
-                    transactionsBufferedReader.close();
+                    infoBufferedReader.close();
+
+                    Path path = Paths.get("data/budgets/transactions/b" + i + "_transactions.csv");
+
+                    if (Files.exists(path)) {
+                        FileReader transactionsReader = new FileReader(
+                                "data/budgets/transactions/b" + i + "_transactions.csv");
+                        BufferedReader transactionsBufferedReader = new BufferedReader(transactionsReader);
+
+                        while ((line = transactionsBufferedReader.readLine()) != null) {
+                            String[] values = line.split(";");
+                            String name = values[1];
+                            String notes = values[2];
+                            int cents = Integer.parseInt(values[3]);
+                            String category = values[4];
+                            boolean isIncome;
+
+                            if (values[5].equals("false")) {
+                                isIncome = false;
+                            } else {
+                                isIncome = true;
+                            }
+                            this.budgets.get(i).addTransaction(name, notes, cents, false, category, isIncome);
+                        }
+                        transactionsBufferedReader.close();
+                    }
                 }
             }
             return true;
