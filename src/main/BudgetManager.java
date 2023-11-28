@@ -106,9 +106,8 @@ public class BudgetManager {
                     }
                     infoBufferedReader.close();
 
-                    Path path = Paths.get("data/budgets/transactions/b" + i + "_transactions.csv");
-
-                    if (Files.exists(path)) {
+                    Path transactionPath = Paths.get("data/budgets/transactions/b" + i + "_transactions.csv");
+                    if (Files.exists(transactionPath)) {
                         FileReader transactionsReader = new FileReader(
                                 "data/budgets/transactions/b" + i + "_transactions.csv");
                         BufferedReader transactionsBufferedReader = new BufferedReader(transactionsReader);

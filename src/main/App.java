@@ -18,6 +18,7 @@ class App {
         while (runMain) {
             showMainMenu();
         }
+
     }
 
     static void showMainMenu() {
@@ -68,10 +69,14 @@ class App {
             // Selecting the budget
             System.out.print("Id: ");
             int id = Integer.parseInt(scanner.nextLine());
-            budget = bm.getBudgets().get(id);
-            showBudgetMenu();
+            if (id < bm.getBudgets().size()) {
+                budget = bm.getBudgets().get(id);
+                showBudgetMenu();
+            } else {
+                System.out.println("There's no budget with the id of " + id);
+            }
         } else {
-            System.out.println("No budgets!");
+            System.out.println("No budgets saved");
         }
     }
 
@@ -134,7 +139,7 @@ class App {
                 System.out.println(i + ": " + budget.getTransactions().get(i));
             }
         } else {
-            System.out.println("No transactions!");
+            System.out.println("No transactions saved");
         }
     }
 }

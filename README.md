@@ -11,6 +11,8 @@ Data is saved in data-folder as CSV-files.
 
 At the root of the project type run the app with: `javac -d bin src/main/*.java && java -cp bin main/App`.
 
+Combined: `javac -d bin src/main/*.java && java -cp bin main/App`
+
 ## Running the Tests
 
 At the root of the project run the tests with: `javac -cp ".;bin;lib/junit-4.12.jar" -d bin src/main/*.java src/test/*.java && java -cp "bin;lib/junit-4.12.jar;lib/hamcrest-core-1.3.jar" test.TestSuiteRunner`
