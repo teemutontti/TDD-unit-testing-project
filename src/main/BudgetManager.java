@@ -26,8 +26,13 @@ public class BudgetManager {
 
     public boolean exportData() {
         try {
+            Path dirPath = Paths.get("data/budgets/");
+            if (!Files.exists(dirPath)) {
+                new File("data/budgets/").mkdirs();
+            }
+
             // Clear folder before export
-            Path dir = Paths.get("data/budgets");
+            Path dir = Paths.get("data/budgets/");
             Files
                     .walk(dir)
                     .sorted(Comparator.reverseOrder())
