@@ -124,6 +124,7 @@ class App {
         } else {
             budget.addTransaction(name, notes, amountInt, false, category, false);
         }
+        bm.exportData();
     }
 
     static void listTransactions() {
